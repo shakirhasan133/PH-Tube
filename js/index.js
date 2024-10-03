@@ -64,10 +64,10 @@ function loadVideoOnCat(id) {
     });
 }
 
-const loadMedia = async () => {
+const loadMedia = async (title = "") => {
   try {
     const res = await fetch(
-      "https://openapi.programming-hero.com/api/phero-tube/videos"
+      `https://openapi.programming-hero.com/api/phero-tube/videos?title=${title}`
     );
     const data = await res.json();
     displayVideo(data.videos);
@@ -182,6 +182,12 @@ function timeCalculator(postedDate) {
     return `${months} Month ${remainingDays} days ago`;
   }
 }
+
+const inputSerarch = document
+  .getElementById("inputSerarch")
+  .addEventListener("keyup", (e) => {
+    loadMedia(e.target.value);
+  });
 
 loadMedia();
 loadCategories();
