@@ -3,8 +3,6 @@ function loadCategories() {
   fetch("https://openapi.programming-hero.com/api/phero-tube/categories")
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
-
       showCategories(data.categories);
     });
 }
@@ -16,6 +14,30 @@ const removeActiveClass = () => {
     btn.classList.remove("btn-info");
   }
 };
+
+// Function for fetch video details
+
+function videoDes(vid) {
+  fetch(`https://openapi.programming-hero.com/api/phero-tube/video/${vid}`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+
+      const modalBox = document.getElementById("modalBox");
+      const showmodal = document.getElementById("my_modal_2");
+      showmodal.showModal();
+
+      modalBox.innerHTML = `
+        <img src = "${data.video?.thumbnail}" class="w-full h-[250px] object-cover"/>
+         <p class="font-mono px-2 py-2">${data.video?.description}</p>
+        
+
+         <form method="dialog" class="modal-backdrop">
+          <button class="btn btn-success">Close</button>
+          </form>
+      `;
+    });
+}
 
 // showCatagories in Dom
 const showCategories = (catName) => {
@@ -75,8 +97,10 @@ function displayVideo(videos) {
     card.classList.add("card");
 
     card.innerHTML = `
-    <figure class="rounded h-[200px] relative">
+    
+    <figure class="rounded h-[200px] relative cursor-pointer">
             <img
+              onclick="videoDes('${video.video_id}')"
               class="w-full h-full object-cover"
               src="${video.thumbnail}"
               alt=""
@@ -124,6 +148,9 @@ function displayVideo(videos) {
               </div>
             </div>
           </div>
+
+
+
   `;
 
     cardContainer.append(card);

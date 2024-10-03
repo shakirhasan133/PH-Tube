@@ -52,6 +52,18 @@
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-4"
         id="cardContainer"
       ></section>
+
+      <section>
+        <button class="btn hidden" onclick="my_modal_2.showModal()">
+          open modal
+        </button>
+        <dialog id="my_modal_2" class="modal">
+          <div class="modal-box" id="modalBox"></div>
+          <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
+      </section>
     </main>
   </body>
 
